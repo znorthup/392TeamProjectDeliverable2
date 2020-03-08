@@ -1,3 +1,4 @@
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -30,7 +31,9 @@ df_sorted = df.sort_values(by=['Total Profit'], ascending=False)
 df_sorted = df_sorted.set_index(["Region"]) 
 df_sorted = df_sorted.reset_index()
 print('Top 10 highest total profit items')
+print()
 print('\t Order ID', '\t', 'Order Date', '\t', 'Total Profit')
+
 
 for i in range(10):
     print('\t', df_sorted['Order ID'].loc[i], '\t', df_sorted['Order Date'].loc[i], '\t', '${:,.2f}'.format(df_sorted['Total Profit'].loc[i]))
@@ -39,7 +42,9 @@ for i in range(10):
 df_sorted = df.sort_values(by=['Total Profit'], ascending=True)
 df_sorted = df_sorted.set_index(["Region"]) 
 df_sorted = df_sorted.reset_index()
+print()
 print('Top 10 lowest total profit items')
+print()
 print('\t Order ID', '\t', 'Order Date', '\t', 'Total Profit')
 
 for i in range(10):
