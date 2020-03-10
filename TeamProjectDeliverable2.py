@@ -61,10 +61,9 @@ print('\t Order ID', '\t', 'Order Date', '\t', 'Total Profit')
 for i in range(10):
     print('\t', df_sorted['Order ID'].loc[i], '\t', df_sorted['Order Date'].loc[i], '\t', '${:,.2f}'.format(df_sorted['Total Profit'].loc[i]))
     i = 1 + i
-
+    
 ##########################Part c##################################
 
-#import pickle
 import pickle
 
 # open binary file
@@ -93,12 +92,51 @@ class Df:
         return self. __ship_date
         return self.__total_profit
 
+
+
+data = Df(df['Order ID'].loc[i], df['Order Date'].loc[i], df['Total Profit'].loc[i])
+
+
 # set empty list
 lis = []
-# loop to append each raw to list and binary file
+i = 0
+
+# loop to append raw data to list and binary file
 for i in range(100):
-    data = Df(df['Order ID'].loc[i], df['Order Date'].loc[i], df['Total Profit'].loc[i])
-    pickle.dump(data, df_file)
-    lis.append(data)
+    # crate new file 
+    lis_row = []
+    # append data into tempraly list 
+    lis_row.append(df['Order ID'].loc[i])
+    lis_row.append(df['Order Date'].loc[i])
+    lis_row.append(df['Total Profit'].loc[i])
+    # append temp list to the list
+    lis.append(lis_row)
+    i =+ 1
+
+# open file 
+df_file = open('record_objects.dat', 'wb')
+    
+# dump list to the picle 
+pickle.dump(lis, df_file)
 # close file 
 df_file.close()
+
+
+# open binary file 
+df_open = open('record_objects.dat', 'rb')
+
+# assigne open pickle file 
+lis_opened = pickle.load(df_open)
+
+# close file
+df_open.close()
+
+
+# print our the 10th data 
+print('This is record #10 out of 100:')
+print('Order ID:','\t',lis_opened[9][0])
+print('Ship Date:','\t',lis_opened[9][1])
+print('Total Profit:','\t','${:,.2f}'.format(lis_opened[9][2]))
+        
+    
+
